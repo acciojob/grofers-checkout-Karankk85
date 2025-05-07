@@ -12,15 +12,15 @@
     </tr>
     <tr>
       <td class="item">Apples</td>
-      <td class="prices" contenteditable="true">40</td>
+      <td class="price" contenteditable="true">40</td>
     </tr>
     <tr>
       <td class="item">Bananas</td>
-      <td class="prices" contenteditable="true">20</td>
+      <td class="price" contenteditable="true">20</td>
     </tr>
     <tr>
       <td class="item">Milk</td>
-      <td class="prices" contenteditable="true">30</td>
+      <td class="price" contenteditable="true">30</td>
     </tr>
   </table>
 
@@ -30,30 +30,28 @@
     const button = document.getElementById("calculateBtn");
 
     button.addEventListener("click", () => {
-      const prices = document.querySelectorAll(".prices");
+      const prices = document.querySelectorAll(".price");
       let total = 0;
 
-      prices.forEach(priceCell => {
-        const val = parseFloat(priceCell.innerText.trim());
-        if (!isNaN(val)) {
-          total += val;
+      prices.forEach(cell => {
+        const value = parseFloat(cell.textContent.trim());
+        if (!isNaN(value)) {
+          total += value;
         }
       });
 
-      // Remove previous total row if already exists
-      const existingTotalRow = document.getElementById("totalRow");
-      if (existingTotalRow) {
-        existingTotalRow.remove();
-      }
+      // Remove previous total row if it exists
+      const existing = document.getElementById("totalRow");
+      if (existing) existing.remove();
 
-      // Create a new row for total
+      // Add new total row
       const table = document.getElementById("groceryTable");
       const newRow = document.createElement("tr");
       newRow.id = "totalRow";
-      const newCell = document.createElement("td");
-      newCell.colSpan = 2;
-      newCell.innerText = total;
-      newRow.appendChild(newCell);
+      const totalCell = document.createElement("td");
+      totalCell.colSpan = 2;
+      totalCell.textContent = total;
+      newRow.appendChild(totalCell);
       table.appendChild(newRow);
     });
   </script>
